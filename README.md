@@ -7,7 +7,7 @@ Helper and generator to ease the use of FontAwesome in c++. The name of each ico
 #include "FontAwesome.h"
 
 static std::vector<string> someIcons = {	
-  fa::glass(),
+  	fa::glass(),
 	fa::music(),
 	fa::search(),
 	fa::heart(),
