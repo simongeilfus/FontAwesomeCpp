@@ -37,6 +37,8 @@ void drawHeartIcon( const vec2 &position )
 }
 ```
 
+You can also query the whole character set with ```fa::allChars()``` or its range with ```fa::charsRange()``` in case you need to generate some texture atlas...
+
 If you want to re-generate the FontAwesome.h file, you can use the FontAwesomeGenerator and this line of code :
 
 ```c++
