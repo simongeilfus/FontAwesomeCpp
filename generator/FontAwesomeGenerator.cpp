@@ -90,22 +90,30 @@ std::stringstream FontAwesomeGenerator::read( const char *cssPath )
     string line;
     stringstream streamOut;
     
+    std::pair<int,int> range = { std::numeric_limits<int>::max(), std::numeric_limits<int>::min() };
     vector<string> names;
     ifstream file( cssPath );
     while( getline( file, line ) ) {
-        istringstream stream( line );
-        
-        // check for name
         size_t faPos        = line.find( ".fa-" );
         size_t beforePos    = line.rfind( ":before" );
         size_t contentPos   = line.find( "content: \"\\" );
+        
+        // check for names
         if( beforePos != string::npos ){
             string name = line.substr( faPos + 4, beforePos - 4 );
             replaceAll( name, "-", "_" );
             names.push_back( name );
         }
+        // get the unicode character
         else if( contentPos != string::npos ){
             string unicode = line.substr( contentPos + 11, 4 );
+            int unicodeInt = std::stoul( "0x" + unicode, nullptr, 16 );
+            
+            // update the character range
+            if( unicodeInt < range.first ) range.first      = unicodeInt;
+            if( unicodeInt > range.second ) range.second    = unicodeInt;
+            
+            // output it per name
             for( auto name : names ){
                 // skip "try" icon
                 if( name.find( "try" ) == string::npos ){
@@ -117,6 +125,12 @@ std::stringstream FontAwesomeGenerator::read( const char *cssPath )
         }
     }
     
+    // output the allChars method
     streamOut << "\t" << "static std::string allChars() { return \"" + allChars + "\"; }" << endl;
+    // output the charsRange method
+    std::stringstream rangeStream;
+    rangeStream << std::hex << "0x" << range.first << ", " << "0x" << range.second;
+    streamOut << "\t" << "static std::pair<uint16_t,uint16_t> charsRange() { return { " + rangeStream.str() + " }; }" << endl;
+    
     return streamOut;
 }
