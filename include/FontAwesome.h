@@ -1,5 +1,5 @@
 /*
- Cinder-FontAwesome
+ FontAwesomeCpp
  
  Copyright (c) 2015, Simon Geilfus - All rights reserved.
  

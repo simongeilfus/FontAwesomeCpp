@@ -29,7 +29,7 @@ using namespace std;
 
 // MARK: License
 const std::string license = R"(/*
- Cinder-FontAwesome
+ FontAwesomeCpp
  
  Copyright (c) 2015, Simon Geilfus - All rights reserved.
  
