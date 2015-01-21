@@ -42,7 +42,7 @@ If you want to re-generate the FontAwesome.h file, you can use the FontAwesomeGe
 ```c++
 #include "FontAwesomeGenerator.h"
 
-void main()
+int main( int argc, char **argv )
 {
   FontAwesomeGenerator::write( "pathTo/font-awesome.css", "otherPathTo/FontAwesome.h" );
 }
